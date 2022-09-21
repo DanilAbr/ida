@@ -29,6 +29,11 @@ export default {
         id: 2,
         name: 'Добавление товара',
         url: '/add-product'
+      },
+      {
+        id: 3,
+        name: 'Количество потраченного времени на сайт',
+        url: '/amount-of-time-spent'
       }
     ]
   })
@@ -39,6 +44,7 @@ export default {
 .header {
   min-height: 40px;
   background: $color_grey-light;
+  border-bottom: 2px solid $color_grey;
 
   &__menu-list {
     display: flex;
