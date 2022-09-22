@@ -143,6 +143,10 @@ export default {
   padding: 32px 0;
   background: $color_grey-light;
 
+  @media (max-width: 767px) {
+    padding: 24px 0;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
@@ -152,20 +156,36 @@ export default {
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(16, 1fr);
     gap: 0 16px;
+    grid-template-columns: repeat(16, 1fr);
+
+    @media (max-width: 767px) {
+      display: block;
+    }
   }
 
   &__form {
     height: max-content;
     grid-column: 1 / 5;
+
+    @media (max-width: 1279px) {
+      grid-column: 1 / 7;
+    }
+
+    @media (max-width: 767px) {
+      margin-bottom: 24px;
+    }
   }
 
   &__product-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     grid-column: 5 / -1;
+
+    @media (max-width: 1279px) {
+      grid-column: 7 / -1;
+    }
   }
 }
 </style>
