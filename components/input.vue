@@ -74,6 +74,11 @@ export default {
     &::placeholder {
       color: $color_grey-dark;
     }
+
+    &:focus,
+    &:hover {
+      background: $color_grey-light;
+    }
   }
 }
 </style>

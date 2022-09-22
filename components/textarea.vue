@@ -55,6 +55,7 @@ export default {
   }
 
   &__field {
+    height: 125px;
     padding: 10px 16px 11px 10px;
     color: $color_black;
     font-family: inherit;
@@ -67,6 +68,11 @@ export default {
 
     &::placeholder {
       color: $color_grey-dark;
+    }
+
+    &:focus,
+    &:hover {
+      background: $color_grey-light;
     }
   }
 }

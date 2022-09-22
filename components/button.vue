@@ -45,5 +45,14 @@ export default {
     color: $color_grey-dark;
     background: $color_grey;
   }
+
+  &:focus,
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
 }
 </style>
