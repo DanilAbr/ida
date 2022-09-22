@@ -2,7 +2,7 @@
   <div class="amount-of-time-spent">
     <div class="container">
       <h1 class="title title--xxl">
-        {{ pageTitle }}. <span v-if="totalHours">Всего {{ totalHours }} час(а/ов)</span>
+        {{ pageTitle }}.<br><span v-if="totalHours">Всего {{ totalHours }} час(а/ов)</span>
       </h1>
 
       <table class="amount-of-time-spent__table">
@@ -74,11 +74,19 @@ export default {
   padding: 32px 0;
   min-height: 100vh;
 
+  @media (max-width: 767px) {
+    padding: 24px 0;
+  }
+
   &__table {
     width: 50%;
     margin-top: 16px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
     border-radius: 4px;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
 
     thead {
       background: $color_grey-light;
