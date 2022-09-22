@@ -9,6 +9,7 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
+      @input.stop="$emit('input', $event.target.value)"
     >
     <span v-if="error" class="input__error">
       {{ error }}
@@ -79,6 +80,12 @@ export default {
     &:hover {
       background: $color_grey-light;
     }
+  }
+
+  &__error {
+    font-size: 14px;
+    line-height: 20px;
+    color: $color_red;
   }
 }
 </style>

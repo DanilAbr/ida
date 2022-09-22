@@ -9,6 +9,7 @@
       :maxlength="maxLength"
       :name="name"
       :placeholder="placeholder"
+      @input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
