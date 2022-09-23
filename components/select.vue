@@ -1,5 +1,9 @@
 <template>
-  <select class="select" :name="selectName">
+  <select
+    class="select"
+    :name="selectName"
+    @input="onChange"
+  >
     <option
       v-for="option in options"
       :key="option.code"
@@ -26,6 +30,16 @@ export default {
       type: String,
       required: true
     }
+  },
+  methods: {
+    onChange (evt) {
+      const { value } = evt.target
+
+      this.$emit('input', {
+        code: this.options.find(el => el.name === value).code,
+        value
+      })
+    }
   }
 }
 </script>
@@ -50,11 +64,6 @@ export default {
   &:hover,
   &:focus {
     background-color: $color_grey-light;
-  }
-
-  &:active {
-    color: inherit;
-    opacity: 0.7;
   }
 }
 </style>

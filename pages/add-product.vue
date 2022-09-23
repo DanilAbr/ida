@@ -21,7 +21,7 @@
 
         <ul class="add-product__product-list">
           <li
-            v-for="card in productList"
+            v-for="card in sortedProductList"
             :key="card.id"
             class="add-product__product-item"
           >
@@ -53,7 +53,7 @@ export default {
         },
         name: 'Наименование товара 1',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 10
       },
       {
         id: 2,
@@ -61,9 +61,9 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        name: 'Наименование товара 2',
+        name: 'Нбименование товара 2',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 2
       },
       {
         id: 3,
@@ -73,7 +73,7 @@ export default {
         },
         name: 'Наименование товара 3',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 12
       },
       {
         id: 4,
@@ -83,7 +83,7 @@ export default {
         },
         name: 'Наименование товара 4',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 123
       },
       {
         id: 5,
@@ -93,7 +93,7 @@ export default {
         },
         name: 'Наименование товара 5',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 0
       },
       {
         id: 6,
@@ -103,7 +103,7 @@ export default {
         },
         name: 'Наименование товара 6',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: '10 000 руб.'
+        price: 111111
       }
     ],
     selectSort: {
@@ -132,6 +132,22 @@ export default {
       ]
     }
   }),
+  computed: {
+    sortedProductList () {
+      const copyList = [...this.productList]
+
+      switch (this.selectSort.value.code) {
+        case 2:
+          return copyList.sort((a, b) => a.price - b.price)
+        case 3:
+          return copyList.sort((a, b) => b.price - a.price)
+        case 4:
+          return copyList.sort((a, b) => a.name.localeCompare(b.name))
+        default:
+          return copyList
+      }
+    }
+  },
   methods: {
     deleteProductCard (id) {
       this.productList = this.productList.filter(product => product.id !== id)
