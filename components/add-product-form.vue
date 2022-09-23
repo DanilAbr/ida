@@ -36,6 +36,7 @@
       :label="'Добавить товар'"
       :disabled="!isFormValid"
       type="button"
+      @on-click="onAddProductClick"
     />
   </form>
 </template>
@@ -114,6 +115,14 @@ export default {
       if (field.value) {
         field.touched = true
       }
+    },
+    onAddProductClick () {
+      this.$emit('add-product', {
+        name: this.form.inputName.value,
+        desc: this.form.textareaDesc.value,
+        url: this.form.inputImageUrl.value,
+        price: this.form.inputProductPrice.value
+      })
     }
   }
 }
