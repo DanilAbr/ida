@@ -19,7 +19,7 @@
           @add-product="addProductCard"
         />
 
-        <ul class="add-product__product-list">
+        <transition-group name="flip-list" tag="ul" class="add-product__product-list">
           <li
             v-for="card in sortedProductList"
             :key="card.id"
@@ -34,7 +34,7 @@
               @delete-product="deleteProductCard"
             />
           </li>
-        </ul>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -219,6 +219,10 @@ export default {
     @media (max-width: 1279px) {
       grid-column: 7 / -1;
     }
+  }
+
+  .flip-list-move {
+    transition: transform 1s;
   }
 }
 </style>
