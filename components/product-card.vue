@@ -8,9 +8,11 @@
       <h3 class="product-card__title title title--l">
         {{ name }}
       </h3>
-      <p class="product-card__desc">{{ desc }}</p>
+      <p class="product-card__desc">
+        {{ desc }}
+      </p>
       <p class="product-card__price title title--xl">
-        {{ price }}
+        {{ price }} руб.
       </p>
     </div>
 
@@ -49,8 +51,8 @@ export default {
       default: ''
     },
     price: {
-      type: String,
-      default: ''
+      type: Number,
+      required: true
     }
   },
   methods: {
