@@ -163,19 +163,27 @@ export default {
       this.productList = this.productList.filter(product => product.id !== id)
     },
     addProductCard ({ name, desc, url, price }) {
-      this.productList.push({
-        id: this.productList.length + 1,
-        image: {
-          url,
-          alt: ''
-        },
-        name,
-        desc,
-        price
+      const isNotUniq = this.productList.find((product) => {
+        return product.name === name && product.desc === desc && product.image.url === url && product.price === price
       })
 
-      this.updateLocalStorage()
-      this.$toast.success('Товар успешно добавлен')
+      if (!isNotUniq) {
+        this.productList.push({
+          id: this.productList.length + 1,
+          image: {
+            url,
+            alt: ''
+          },
+          name,
+          desc,
+          price
+        })
+
+        this.updateLocalStorage()
+        this.$toast.success('Товар успешно добавлен')
+      } else {
+        this.$toast.error('Такой товар уже был добавлен')
+      }
     },
     updateLocalStorage () {
       localStorage.setItem('productList', JSON.stringify(this.productList))
