@@ -154,7 +154,7 @@ export default {
     },
     addProductCard ({ name, desc, url, price }) {
       this.productList.push({
-        id: this.productList.length,
+        id: this.productList.length + 1,
         image: {
           url,
           alt: ''
@@ -163,6 +163,8 @@ export default {
         desc,
         price
       })
+
+      this.$toast.success('Товар успешно добавлен')
     }
   }
 }
