@@ -148,6 +148,16 @@ export default {
       }
     }
   },
+  created () {
+    const listFromStorage = localStorage.getItem('productList')
+
+    if (listFromStorage) {
+      this.productList = JSON.parse(listFromStorage)
+      return
+    }
+
+    this.updateLocalStorage()
+  },
   methods: {
     deleteProductCard (id) {
       this.productList = this.productList.filter(product => product.id !== id)
@@ -164,7 +174,11 @@ export default {
         price
       })
 
+      this.updateLocalStorage()
       this.$toast.success('Товар успешно добавлен')
+    },
+    updateLocalStorage () {
+      localStorage.setItem('productList', JSON.stringify(this.productList))
     }
   }
 }
