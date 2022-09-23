@@ -14,7 +14,10 @@
       </div>
 
       <div class="add-product__content">
-        <add-product-form class="add-product__form" />
+        <add-product-form
+          class="add-product__form"
+          @add-product="addProductCard"
+        />
 
         <ul class="add-product__product-list">
           <li
@@ -25,7 +28,7 @@
             <product-card
               :id="card.id"
               :image="card.image"
-              :label="card.label"
+              :name="card.name"
               :desc="card.desc"
               :price="card.price"
               @delete-product="deleteProductCard"
@@ -48,7 +51,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 1',
+        name: 'Наименование товара 1',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       },
@@ -58,7 +61,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 2',
+        name: 'Наименование товара 2',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       },
@@ -68,7 +71,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 3',
+        name: 'Наименование товара 3',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       },
@@ -78,7 +81,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 4',
+        name: 'Наименование товара 4',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       },
@@ -88,7 +91,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 5',
+        name: 'Наименование товара 5',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       },
@@ -98,7 +101,7 @@ export default {
           url: 'https://loremflickr.com/332/200',
           alt: ''
         },
-        label: 'Наименование товара 6',
+        name: 'Наименование товара 6',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: '10 000 руб.'
       }
@@ -132,6 +135,18 @@ export default {
   methods: {
     deleteProductCard (id) {
       this.productList = this.productList.filter(product => product.id !== id)
+    },
+    addProductCard ({ name, desc, url, price }) {
+      this.productList.push({
+        id: this.productList.length,
+        image: {
+          url,
+          alt: ''
+        },
+        name,
+        desc,
+        price
+      })
     }
   }
 }

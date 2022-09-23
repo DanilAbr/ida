@@ -3,6 +3,7 @@
     :type="type"
     :disabled="disabled"
     class="button"
+    @click="$emit('on-click')"
   >
     {{ label }}
   </button>

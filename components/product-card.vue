@@ -1,12 +1,14 @@
 <template>
   <div class="product-card">
-    <img class="product-card__img" :src="image.url" :alt="image.alt">
+    <div class="product-card__img-wrap">
+      <img class="product-card__img" :src="image.url" :alt="image.alt">
+    </div>
 
     <div class="product-card__content">
       <h3 class="product-card__title title title--l">
-        {{ label }}
+        {{ name }}
       </h3>
-      <p>{{ desc }}</p>
+      <p class="product-card__desc">{{ desc }}</p>
       <p class="product-card__price title title--xl">
         {{ price }}
       </p>
@@ -38,7 +40,7 @@ export default {
       type: String,
       default: ''
     },
-    label: {
+    name: {
       type: String,
       required: true
     },
@@ -62,15 +64,30 @@ export default {
 <style lang="scss" scoped>
 .product-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: 4px;
 
+  &__img-wrap {
+    position: relative;
+    padding: percentage(200 / 332) 0 0;
+  }
+
   &__img {
-    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 16px 16px 24px;
     background: $color_white_hard;
   }
@@ -79,8 +96,12 @@ export default {
     margin-bottom: 16px;
   }
 
+  &__desc {
+    margin-bottom: 24px;
+  }
+
   &__price {
-    margin-top: 24px;
+    margin-top: auto;
   }
 
   &__delete-button {
