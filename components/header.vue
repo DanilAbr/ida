@@ -56,8 +56,13 @@ export default {
       this.toggleMenu()
     },
     onLinkClick (url) {
-      this.toggleMenu()
+      if (this.isMobile()) {
+        this.toggleMenu()
+      }
       this.$router.push(url)
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   }
 }
@@ -72,6 +77,7 @@ export default {
   &__nav {
     @media (max-width: 767px) {
       position: absolute;
+      max-width: calc(100vw - 40px);
       background: $color_white-hard;
       box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
       border-radius: 4px;
@@ -115,6 +121,7 @@ export default {
     transition: background 0.2s ease / opacity 0.2 ease;
     border: none;
     background: transparent;
+    cursor: pointer;
 
     &:hover,
     &:focus {
@@ -138,12 +145,13 @@ export default {
       position: absolute;
       top: 0;
       display: block;
-      right: -30px;
+      right: 0;
       width: 40px;
       height: 40px;
       cursor: pointer;
       background: transparent;
       border: none;
+      transform: translate3d(30px, 0, 0);
 
       &::after,
       &::before {

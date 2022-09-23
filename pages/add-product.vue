@@ -195,7 +195,7 @@ export default {
   &__product-list {
     display: grid;
     gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-column: 5 / -1;
 
     @media (max-width: 1279px) {
