@@ -29,6 +29,8 @@
       :placeholder="form.inputProductPrice.placeholder"
       :name="form.inputProductPrice.name"
       :error="form.inputProductPrice.error"
+      only-numbers
+      separated
     />
 
     <Button
@@ -121,7 +123,7 @@ export default {
         name: this.form.inputName.value,
         desc: this.form.textareaDesc.value,
         url: this.form.inputImageUrl.value,
-        price: +this.form.inputProductPrice.value
+        price: +this.form.inputProductPrice.value.replace(/\s+/g, '')
       })
     }
   }

@@ -9,7 +9,8 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
-      @input.stop="$emit('input', $event.target.value)"
+      @input="input"
+      @change="$emit('change', $event.target.value)"
     >
     <span v-if="error" class="input__error">
       {{ error }}
@@ -44,6 +45,35 @@ export default {
     error: {
       type: String,
       default: ''
+    },
+    onlyNumbers: {
+      type: Boolean,
+      default: false
+    },
+    separated: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    async input (evt) {
+      if (this.onlyNumbers) {
+        evt.target.value = evt.target.value.replace(/[^0-9]/g, '')
+
+        if (this.separated) {
+          evt.target.value = (+evt.target.value).toLocaleString('ru-RU')
+        }
+
+        if (evt.target.value === '0') {
+          evt.target.value = ''
+        }
+
+        this.$emit('input', evt.target.value)
+        await this.$nextTick()
+      }
+
+      this.$emit('input', evt.target.value)
+      this.$emit('change', evt.target.value)
     }
   }
 }
