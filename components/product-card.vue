@@ -12,7 +12,7 @@
         {{ desc }}
       </p>
       <p class="product-card__price title title--xl">
-        {{ price }} руб.
+        {{ (price).toLocaleString('ru') }} руб.
       </p>
     </div>
 
