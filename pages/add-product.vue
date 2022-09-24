@@ -24,6 +24,7 @@
             v-for="card in sortedProductList"
             :key="card.id"
             class="add-product__product-item"
+            :class="{'is-deleted': card.isDeleted}"
           >
             <product-card
               :id="card.id"
@@ -53,7 +54,8 @@ export default {
         },
         name: 'Наименование товара 1',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 10
+        price: 10,
+        isDeleted: false
       },
       {
         id: 2,
@@ -63,7 +65,8 @@ export default {
         },
         name: 'Нбименование товара 2',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 2
+        price: 2,
+        isDeleted: false
       },
       {
         id: 3,
@@ -73,7 +76,8 @@ export default {
         },
         name: 'Наименование товара 3',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 12
+        price: 12,
+        isDeleted: false
       },
       {
         id: 4,
@@ -83,7 +87,8 @@ export default {
         },
         name: 'Наименование товара 4',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 123
+        price: 123,
+        isDeleted: false
       },
       {
         id: 5,
@@ -93,7 +98,8 @@ export default {
         },
         name: 'Наименование товара 5',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 0
+        price: 0,
+        isDeleted: false
       },
       {
         id: 6,
@@ -103,7 +109,8 @@ export default {
         },
         name: 'Наименование товара 6',
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 111111
+        price: 111111,
+        isDeleted: false
       }
     ],
     selectSort: {
@@ -160,7 +167,13 @@ export default {
   },
   methods: {
     deleteProductCard (id) {
-      this.productList = this.productList.filter(product => product.id !== id)
+      this.productList.find(product => product.id === id).isDeleted = true
+
+      setTimeout(() => {
+        this.productList = this.sortedProductList.filter(product => product.id !== id)
+      }, 500)
+
+      this.updateLocalStorage()
     },
     addProductCard ({ name, desc, url, price }) {
       const isNotUniq = this.productList.find((product) => {
@@ -240,6 +253,13 @@ export default {
 
     @media (max-width: 1279px) {
       grid-column: 7 / -1;
+    }
+  }
+
+  &__product-item {
+    &.is-deleted {
+      transform: scale(0);
+      transition: transform 0.7s ease;
     }
   }
 
