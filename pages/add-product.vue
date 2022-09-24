@@ -21,7 +21,7 @@
 
         <transition-group name="flip-list" tag="ul" class="add-product__product-list">
           <li
-            v-for="card in slicedProductList"
+            v-for="card in sortedProductList"
             :key="card.id"
             class="add-product__product-item"
             :class="{'is-deleted': card.isDeleted}"
@@ -38,7 +38,7 @@
         </transition-group>
       </div>
 
-      <div v-if="isLoaderShown" class="add-product__loader-wrapper">
+      <div v-if="isLoaderShown" ref="loader" class="add-product__loader-wrapper">
         <loader />
       </div>
     </div>
@@ -475,25 +475,28 @@ export default {
     productShowedCount: 9,
     numberOfProductsPerPage: 9,
     isLoaderShown: true,
-    requestTimeout: null
+    requestTimeout: null,
+    windowHeight: null,
+    loaderHeight: null,
+    headerHeight: null
   }),
   computed: {
     sortedProductList () {
-      const copyList = [...this.productList]
+      let copyList = [...this.productList]
 
       switch (this.selectSort.value.code) {
         case 2:
-          return copyList.sort((a, b) => a.price - b.price)
+          copyList = copyList.sort((a, b) => a.price - b.price)
+          break
         case 3:
-          return copyList.sort((a, b) => b.price - a.price)
+          copyList = copyList.sort((a, b) => b.price - a.price)
+          break
         case 4:
-          return copyList.sort((a, b) => a.name.localeCompare(b.name))
-        default:
-          return copyList
+          copyList = copyList.sort((a, b) => a.name.localeCompare(b.name))
+          break
       }
-    },
-    slicedProductList () {
-      return JSON.parse(JSON.stringify(this.sortedProductList)).slice(0, this.productShowedCount)
+
+      return copyList.slice(0, this.productShowedCount)
     }
   },
   created () {
@@ -507,6 +510,10 @@ export default {
     this.updateLocalStorage()
   },
   mounted () {
+    this.windowHeight = window.innerHeight
+    this.loaderHeight = this.$refs.loader?.getBoundingClientRect().height
+    this.headerHeight = document.querySelector('.header')?.getBoundingClientRect().height
+    this.onScroll()
     window.addEventListener('scroll', this.onScroll)
   },
   unmounted () {
@@ -517,10 +524,9 @@ export default {
       this.productList.find(product => product.id === id).isDeleted = true
 
       setTimeout(() => {
-        this.productList = this.sortedProductList.filter(product => product.id !== id)
-      }, 500)
-
-      this.updateLocalStorage()
+        this.productList = this.productList.filter(product => product.id !== id)
+        this.updateLocalStorage()
+      }, 300)
     },
     addProductCard ({ name, desc, url, price }) {
       const isNotUniq = this.productList.find((product) => {
@@ -549,12 +555,13 @@ export default {
       localStorage.setItem('productList', JSON.stringify(this.productList))
     },
     onScroll () {
-      if (this.productShowedCount === this.productList.length) {
-        this.isLoaderShown = false
+      if (this.productShowedCount > this.productList.length) {
         return
       }
 
-      if (Math.floor(this.$refs.catalog?.getBoundingClientRect().bottom) <= window.innerHeight) {
+      const catalogBottom = this.$refs.catalog?.getBoundingClientRect().bottom
+
+      if (Math.floor(catalogBottom) <= this.windowHeight + this.headerHeight + this.loaderHeight) {
         this.updateList()
       }
     },
@@ -563,6 +570,10 @@ export default {
       this.requestTimeout = clearTimeout(this.requestTimeout)
       this.requestTimeout = setTimeout(() => {
         this.productShowedCount += this.numberOfProductsPerPage
+
+        if (this.productShowedCount >= this.productList.length) {
+          this.isLoaderShown = false
+        }
       }, 700)
     }
   }
@@ -634,7 +645,7 @@ export default {
   }
 
   .flip-list-move {
-    //transition: transform 1s;
+    transition: transform 1s;
   }
 }
 </style>

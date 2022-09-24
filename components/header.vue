@@ -6,7 +6,6 @@
           <li
             v-for="link in links"
             :key="link.id"
-            class="header__menu-item"
           >
             <button type="button" :to="link.url" class="header__link" @click="onLinkClick(link.url)">
               {{ link.name }}
