@@ -1,5 +1,5 @@
 <template>
-  <div class="add-product">
+  <div ref="catalog" class="add-product">
     <div class="container">
       <div class="add-product__top">
         <h1 class="title title--xxl">
@@ -21,7 +21,7 @@
 
         <transition-group name="flip-list" tag="ul" class="add-product__product-list">
           <li
-            v-for="card in sortedProductList"
+            v-for="card in slicedProductList"
             :key="card.id"
             class="add-product__product-item"
             :class="{'is-deleted': card.isDeleted}"
@@ -36,6 +36,10 @@
             />
           </li>
         </transition-group>
+      </div>
+
+      <div v-if="isLoaderShown" class="add-product__loader-wrapper">
+        <loader />
       </div>
     </div>
   </div>
@@ -111,6 +115,336 @@ export default {
         desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
         price: 111111,
         isDeleted: false
+      },
+      {
+        id: 7,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 1',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10,
+        isDeleted: false
+      },
+      {
+        id: 8,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Нбименование товара 2',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 2,
+        isDeleted: false
+      },
+      {
+        id: 9,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 3',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 12,
+        isDeleted: false
+      },
+      {
+        id: 10,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 4',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 123,
+        isDeleted: false
+      },
+      {
+        id: 11,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 5',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 0,
+        isDeleted: false
+      },
+      {
+        id: 12,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 6',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 111111,
+        isDeleted: false
+      },
+      {
+        id: 13,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 1',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10,
+        isDeleted: false
+      },
+      {
+        id: 14,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Нбименование товара 2',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 2,
+        isDeleted: false
+      },
+      {
+        id: 15,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 3',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 12,
+        isDeleted: false
+      },
+      {
+        id: 16,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 4',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 123,
+        isDeleted: false
+      },
+      {
+        id: 17,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 5',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 0,
+        isDeleted: false
+      },
+      {
+        id: 18,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 6',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 111111,
+        isDeleted: false
+      },
+      {
+        id: 19,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 1',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10,
+        isDeleted: false
+      },
+      {
+        id: 20,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Нбименование товара 2',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 2,
+        isDeleted: false
+      },
+      {
+        id: 21,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 3',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 12,
+        isDeleted: false
+      },
+      {
+        id: 22,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 4',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 123,
+        isDeleted: false
+      },
+      {
+        id: 23,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 5',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 0,
+        isDeleted: false
+      },
+      {
+        id: 24,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 6',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 111111,
+        isDeleted: false
+      },
+      {
+        id: 25,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 1',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10,
+        isDeleted: false
+      },
+      {
+        id: 26,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Нбименование товара 2',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 2,
+        isDeleted: false
+      },
+      {
+        id: 27,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 3',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 12,
+        isDeleted: false
+      },
+      {
+        id: 28,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 4',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 123,
+        isDeleted: false
+      },
+      {
+        id: 29,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 5',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 0,
+        isDeleted: false
+      },
+      {
+        id: 30,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 6',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 111111,
+        isDeleted: false
+      },
+      {
+        id: 31,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 1',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10,
+        isDeleted: false
+      },
+      {
+        id: 32,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Нбименование товара 2',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 2,
+        isDeleted: false
+      },
+      {
+        id: 33,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 3',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 12,
+        isDeleted: false
+      },
+      {
+        id: 34,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 4',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 123,
+        isDeleted: false
+      },
+      {
+        id: 35,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 5',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 0,
+        isDeleted: false
+      },
+      {
+        id: 36,
+        image: {
+          url: 'https://loremflickr.com/332/200',
+          alt: ''
+        },
+        name: 'Наименование товара 6',
+        desc: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 111111,
+        isDeleted: false
       }
     ],
     selectSort: {
@@ -137,7 +471,11 @@ export default {
           name: 'По наименованию'
         }
       ]
-    }
+    },
+    productShowedCount: 9,
+    numberOfProductsPerPage: 9,
+    isLoaderShown: true,
+    requestTimeout: null
   }),
   computed: {
     sortedProductList () {
@@ -153,6 +491,9 @@ export default {
         default:
           return copyList
       }
+    },
+    slicedProductList () {
+      return JSON.parse(JSON.stringify(this.sortedProductList)).slice(0, this.productShowedCount)
     }
   },
   created () {
@@ -164,6 +505,12 @@ export default {
     }
 
     this.updateLocalStorage()
+  },
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  unmounted () {
+    window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
     deleteProductCard (id) {
@@ -200,6 +547,23 @@ export default {
     },
     updateLocalStorage () {
       localStorage.setItem('productList', JSON.stringify(this.productList))
+    },
+    onScroll () {
+      if (this.productShowedCount === this.productList.length) {
+        this.isLoaderShown = false
+        return
+      }
+
+      if (Math.floor(this.$refs.catalog?.getBoundingClientRect().bottom) <= window.innerHeight) {
+        this.updateList()
+      }
+    },
+    updateList () {
+      // для имитации запроса с бэка
+      this.requestTimeout = clearTimeout(this.requestTimeout)
+      this.requestTimeout = setTimeout(() => {
+        this.productShowedCount += this.numberOfProductsPerPage
+      }, 700)
     }
   }
 }
@@ -263,8 +627,14 @@ export default {
     }
   }
 
+  &__loader-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+  }
+
   .flip-list-move {
-    transition: transform 1s;
+    //transition: transform 1s;
   }
 }
 </style>
